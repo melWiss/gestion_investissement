@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Convention{% endblock %}
+
+{% block body %}
+    <h1>Convention</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ convention.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('convention_index') }}">back to list</a>
+
+    <a href="{{ path('convention_edit', {'id': convention.id}) }}">edit</a>
+
+    {{ include('convention/_delete_form.html.twig') }}
+{% endblock %}
