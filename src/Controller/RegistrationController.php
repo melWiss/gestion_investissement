@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +26,28 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+            $users = $entityManager->getRepository(User::class)->findAll();
+            if (sizeof($users) == 0) {
+                $role = new Role();
+                $role->setTitle("ROLE_ADMIN");
+                $entityManager->persist($role);
+                $entityManager->flush();
+                $user->setRoles([$role->getTitle()]);
+            } else {
+                $roles = $entityManager->getRepository(Role::class)->findAll();
+                if (sizeof($roles) <= 1) {
+                    $role = new Role();
+                    $role->setTitle("ROLE_USER");
+                    $entityManager->persist($role);
+                    $entityManager->flush();
+                    $user->setRoles([$role->getTitle()]);
+                }else{
+                    $role = $entityManager->getRepository(Role::class)->find(1);
+                    $user->setRoles([$role->getTitle()]);
+                }
+            }
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )

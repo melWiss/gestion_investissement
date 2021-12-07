@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211129194229 extends AbstractMigration
+final class Version20211207183734 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,6 +23,8 @@ final class Version20211129194229 extends AbstractMigration
         $this->addSql('CREATE TABLE convention (id INT AUTO_INCREMENT NOT NULL, code_p_id INT NOT NULL, mat_id INT DEFAULT NULL, INDEX IDX_8556657EE5900963 (code_p_id), INDEX IDX_8556657EDCA7C833 (mat_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE investisseur (id INT AUTO_INCREMENT NOT NULL, adresse VARCHAR(255) NOT NULL, nom_societe VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE projet (id INT AUTO_INCREMENT NOT NULL, libelle_p VARCHAR(255) NOT NULL, secteur_p VARCHAR(255) NOT NULL, cout_fixe INT NOT NULL, cout_var INT NOT NULL, duree_p DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE convention ADD CONSTRAINT FK_8556657EE5900963 FOREIGN KEY (code_p_id) REFERENCES projet (id)');
         $this->addSql('ALTER TABLE convention ADD CONSTRAINT FK_8556657EDCA7C833 FOREIGN KEY (mat_id) REFERENCES investisseur (id)');
     }
@@ -35,5 +37,7 @@ final class Version20211129194229 extends AbstractMigration
         $this->addSql('DROP TABLE convention');
         $this->addSql('DROP TABLE investisseur');
         $this->addSql('DROP TABLE projet');
+        $this->addSql('DROP TABLE role');
+        $this->addSql('DROP TABLE user');
     }
 }

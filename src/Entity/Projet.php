@@ -56,7 +56,7 @@ class Projet
 
     public function getId(): ?int
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getLibelleP(): ?string
@@ -117,6 +117,10 @@ class Projet
         $this->DureeP = $DureeP;
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->LibelleP;
     }
 
     /**

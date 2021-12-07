@@ -41,7 +41,7 @@ class Investisseur
 
     public function getId(): ?int
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getAdresse(): ?string
@@ -66,6 +66,10 @@ class Investisseur
         $this->NomSociete = $NomSociete;
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->NomSociete;
     }
 
     /**

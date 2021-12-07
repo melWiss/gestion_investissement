@@ -3,7 +3,14 @@
 {% block title %}Investisseur index{% endblock %}
 
 {% block body %}
-    <h1>Investisseur index</h1>
+<nav class="navbar justify-content-between">
+    <a class="navbar-brand" href="/dashboard/investisseur"><h1>Investisseur index</h1></a>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        
+        {{ form_end(form) }}
+  </nav>
+    
 
     <table class="table">
         <thead>

@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminRepository;
+use App\Repository\RoleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=AdminRepository::class)
+ * @ORM\Entity(repositoryClass=RoleRepository::class)
  */
-class Admin
+class Role
 {
     /**
      * @ORM\Id
@@ -21,21 +22,22 @@ class Admin
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $title;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
