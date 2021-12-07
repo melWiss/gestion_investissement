@@ -7,6 +7,8 @@ use App\Form\ConventionType;
 use App\Repository\ConventionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,12 +19,33 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConventionController extends AbstractController
 {
     /**
-     * @Route("/", name="convention_index", methods={"GET"})
+     * @Route("/", name="convention_index", methods={"GET", "POST"})
      */
-    public function index(ConventionRepository $conventionRepository): Response
+    public function index(Request $request,ConventionRepository $conventionRepository): Response
     {
+        $query = "";
+        $searchForm = $this->createFormBuilder(null)
+            ->add('title', TextType::class)
+            ->add('search', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ])->getForm();
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $query = $searchForm->getData()['title'];
+            echo $query;
+            return $this->render('convention/index.html.twig', [
+                'conventions' => $conventionRepository->findBy([
+                    'CodeP' => $query,
+                ]),
+                'form' => $searchForm->createView(),
+            ]);
+        }
         return $this->render('convention/index.html.twig', [
             'conventions' => $conventionRepository->findAll(),
+            'form' => $searchForm->createView(),
         ]);
     }
 

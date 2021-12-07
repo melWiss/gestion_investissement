@@ -3,7 +3,13 @@
 {% block title %}Convention index{% endblock %}
 
 {% block body %}
-    <h1>Convention index</h1>
+<nav class="navbar justify-content-between">
+    <a class="navbar-brand" href="/dashboard/convention"><h1>Convention index</h1></a>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        
+        {{ form_end(form) }}
+  </nav>
 
     <table class="table">
         <thead>

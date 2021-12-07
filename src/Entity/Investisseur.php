@@ -41,7 +41,7 @@ class Investisseur
 
     public function getId(): ?int
     {
-        return $this->Id;
+        return $this->id;
     }
 
     public function getAdresse(): ?string
