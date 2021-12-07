@@ -15,6 +15,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nom Projet</th>
+                <th>Nom Societe</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +24,8 @@
         {% for convention in conventions %}
             <tr>
                 <td>{{ convention.id }}</td>
+                <td>{{ convention.CodeP }}</td>
+                <td>{{ convention.Mat }}</td>
                 <td>
                     <a href="{{ path('convention_show', {'id': convention.id}) }}">show</a>
                     <a href="{{ path('convention_edit', {'id': convention.id}) }}">edit</a>
